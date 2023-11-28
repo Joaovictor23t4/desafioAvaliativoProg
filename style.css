@@ -1,0 +1,7 @@
+.btnFinalizar {
+    background: transparent;
+    border: none;
+    text-decoration: underline;
+    color: blue;
+    cursor: pointer;
+}
