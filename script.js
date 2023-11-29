@@ -8,11 +8,27 @@ function adicionarTarefa() {
     let input = document.querySelector("#inputPendente");
     let li = document.createElement("li");
     li.classList.add("tarefa");
-    li.innerHTML = `${input.value} - <button class="btnFinalizar" onclick="finalizarTarefa()">Finalizar</button>`;
+    let index = ulPendente.childElementCount;
+    // li.dataset.index = index;
+    let buttonConcluir = document.createElement("button");
+    buttonConcluir.classList.add("btnFinalizar");
+    buttonConcluir.addEventListener("click", (e) => {
+        e.preventDefault();
+    });
+    li.innerHTML = `${input.value} - <button class="btnFinalizar">Finalizar</button>`;
     ulPendente.appendChild(li);
     arrayPendentes.push(input.value);
-    listBtnFinish = document.getElementsByClassName("btnFinalizar");
-    console.log(listBtnFinish);
+
+    // listBtnFinish = document.querySelectorAll(".btnFinalizar");
+
+    // listBtnFinish.forEach((btn, index) => {
+    //     console.log(listBtnFinish);
+    //     alert(index);
+    //     // btn[index].addEventListener("click", finalizarTarefa(index));
+    //     console.log(btn[index]);
+    // })
+
+    buttonConcluir.addEventListener("click", finalizarTarefa());
 }
 
 function limparInput() {
@@ -20,9 +36,8 @@ function limparInput() {
     input.value = "";
 }
 
-function finalizarTarefa() {
-    let liRemove = document.getElementsByClassName("tarefa");
-    ulPendente.removeChild(liRemove[this]);
+function finalizarTarefa(indice) {
+    ulPendente.removeChild(ulPendente.children[indice]);
 }
 
 botaoAdicionar.addEventListener("click", () => {
