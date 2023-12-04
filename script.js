@@ -5,49 +5,42 @@ let listBtnFinish;
 let arrayPendentes = [];
 
 function adicionarTarefa() {
-    let input = document.querySelector("#inputPendente");
+  let input = document.querySelector("#inputPendente").value;
+
+  if (input !== "") {
     let li = document.createElement("li");
-    li.classList.add("tarefa");
-    let index = ulPendente.childElementCount;
-    // li.dataset.index = index;
+    li.innerHTML = input;
     let buttonConcluir = document.createElement("button");
-    buttonConcluir.classList.add("btnFinalizar");
-    buttonConcluir.addEventListener("click", (e) => {
-        e.preventDefault();
+    buttonConcluir.innerHTML = `Finalizar`;
+    buttonConcluir.addEventListener("click", () => {
+      finalizarTarefa(li, buttonConcluir);
     });
-    li.innerHTML = `${input.value} - <button class="btnFinalizar">Finalizar</button>`;
     ulPendente.appendChild(li);
-    arrayPendentes.push(input.value);
-
-    // listBtnFinish = document.querySelectorAll(".btnFinalizar");
-
-    // listBtnFinish.forEach((btn, index) => {
-    //     console.log(listBtnFinish);
-    //     alert(index);
-    //     // btn[index].addEventListener("click", finalizarTarefa(index));
-    //     console.log(btn[index]);
-    // })
-
-    buttonConcluir.addEventListener("click", finalizarTarefa());
+    li.appendChild(buttonConcluir);
+  }
 }
 
 function limparInput() {
-    let input = document.querySelector("#inputPendente");
-    input.value = "";
+  let input = document.querySelector("#inputPendente");
+  input.value = "";
 }
 
-function finalizarTarefa(indice) {
-    ulPendente.removeChild(ulPendente.children[indice]);
+function finalizarTarefa(tarefa, botao) {
+    let removerButton = tarefa.removeChild(botao);
+    let ulFinalizadas = document.querySelector("#ulFinalizadas");
+    let cloneTarefa = tarefa.cloneNode(true);
+    ulFinalizadas.appendChild(cloneTarefa);
+    tarefa.remove();
 }
 
 botaoAdicionar.addEventListener("click", () => {
-    adicionarTarefa();
-    limparInput();
+  adicionarTarefa();
+  limparInput();
 });
 
 inputPendente.addEventListener("keypress", (event) => {
-    if (event.keyCode === 13) {
-        adicionarTarefa();
-        limparInput(); 
-    }
+  if (event.keyCode === 13) {
+    adicionarTarefa();
+    limparInput();
+  }
 });
